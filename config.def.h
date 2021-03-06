@@ -193,7 +193,7 @@ static Key keys[] = {
     { ControlMask,  XF86XK_MonBrightnessDown,   spawn,      SHCMD("light -U 1") },
 
     // recording
-    { 0,            XK_Print,                   spawn,      SHCMD("spectacle") },
+    { 0,            XK_Print,                   spawn,      SHCMD("maim_menu") },
 
 };
 
