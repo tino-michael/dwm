@@ -103,7 +103,11 @@ static const char *termcmd[]  = { "st", NULL };
 
 #define XK_Return 0xff0d
 #define XK_Circum 0xfe52
-#define XK_SZet   0xdf
+#define XK_ß      0xdf
+#define XK_ä	  0xe4
+#define XK_ö	  0xf6
+#define XK_ü	  0xfc
+
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	STACKKEYS(MODKEY,                          focus)
