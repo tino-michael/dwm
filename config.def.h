@@ -75,6 +75,9 @@ static const Layout layouts[] = {
 
 	{ "[D]",      deck },
 
+	{ "TTT",      bstack },
+	{ "===",      bstackhoriz },
+
 	{ "[]=",      tile },
 };
 
@@ -139,9 +142,11 @@ static Key keys[] = {
 	{ MODKEY,                       XK_k,      setlayout,      {.v = &layouts[3]} }, // fibonacci
 	{ MODKEY,                       XK_c,      setlayout,      {.v = &layouts[5]} }, // centeredmaster
 	{ MODKEY|ShiftMask,             XK_c,      setlayout,      {.v = &layouts[6]} }, // centeredfloatingmaster
+	{ MODKEY,                       XK_z,      setlayout,      {.v = &layouts[8]} }, // bstack
+	{ MODKEY|ShiftMask,             XK_z,      setlayout,      {.v = &layouts[9]} }, // bstackhoriz
 	{ MODKEY,                       XK_i,      togglesticky,   {0} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+	{ MODKEY,                       XK_space,  setlayout,      {0} }, // toggle to last used layout
+	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} }, // toggle floating of active window
 
 	// tagging
 	{ MODKEY,                       XK_Circum, view,           {.ui = ~0 } },
