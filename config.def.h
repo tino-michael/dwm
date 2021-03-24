@@ -90,6 +90,7 @@ static const Layout layouts[] = {
 	{ MOD,	XK_r,	ACTION##stack,	{.i = INC(+1) } }, \
 	{ MOD,	XK_n,	ACTION##stack,	{.i = INC(-1) } }, \
 	{ MOD,  XK_x,   ACTION##stack,  {.i = 0 } }, \
+	{ MOD,  XK_u,   ACTION##stack,  {.i = 1 } }, \
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -116,7 +117,11 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Tab,    zoom,           {0} },
 
 	{ MODKEY,                       XK_a,      spawn,          SHCMD("rofi -show combi") },
-	{ MODKEY,                       XK_Return, spawn,          SHCMD("$TERM") },
+	{ MODKEY|ShiftMask,             XK_a,      spawn,          SHCMD("pass_menu") },
+	{ MODKEY,                       XK_ä,      spawn,          SHCMD("rofi-calc") },
+	{ MODKEY,                       XK_ü,      spawn,          SHCMD("yta") },
+	{ MODKEY,                       XK_e,      spawn,          SHCMD("$FILE_CMD") },
+	{ MODKEY,                       XK_Return, spawn,          SHCMD("$TERMINAL") },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_b,      spawn,          SHCMD("polybar-msg cmd toggle") },
 	{ MODKEY,                       XK_d,      setmfact,       {.f = +1.65} },
@@ -155,8 +160,8 @@ static Key keys[] = {
 
     { MODKEY,                       XK_F1,		spawn,		SHCMD("add_todo") },
 
-	{ MODKEY,                       XK_F10,		spawn,		SHCMD("set_sink intern") },
-	{ MODKEY|ShiftMask,             XK_F10,		spawn,		SHCMD("set_sink hdmi") },
+	{ MODKEY,                       XK_F10,		spawn,		SHCMD("connect_hyphen") },
+	{ MODKEY|ShiftMask,             XK_F10,		spawn,		SHCMD("disconnect_hyphen") },
     { MODKEY,                       XK_F11,     spawn,      SHCMD("unsplit") },
     { MODKEY|ShiftMask,             XK_F11,     spawn,      SHCMD("split_21") },
     { MODKEY,                       XK_F12,     spawn,      SHCMD("usb only") },
@@ -164,9 +169,7 @@ static Key keys[] = {
 
     { MODKEY,                       XK_Escape, killclient,     {0} },
     { MODKEY|ShiftMask,             XK_Escape, quit,           {0} },
-
-	// TODO: change to reboot? / shutdown?
-    { MODKEY|ShiftMask|ControlMask, XK_Escape, quit,           {0} },
+    { MODKEY|ShiftMask|ControlMask, XK_Escape, spawn,       SHCMD("shutdown_menu") },
 
 	// audio player controll
 	{ 0, 			XF86XK_AudioPrev,		spawn,		SHCMD("mpc prev") },
@@ -180,8 +183,9 @@ static Key keys[] = {
 	{ ControlMask,	XK_Escape,              spawn,      SHCMD("mpc del 0") },
 
 
-    { MODKEY,               XK_SZet,        spawn,      SHCMD("unicode_menu emoji fontawesome math") },
-    { MODKEY|ShiftMask,     XK_a,           spawn,      SHCMD("today") },
+    { MODKEY,               XK_ß,           spawn,      SHCMD("unicode_menu emoji fontawesome math") },
+    { MODKEY,	     		XK_ö,           spawn,      SHCMD("today copy") },
+    { MODKEY|ShiftMask,     XK_ö,           spawn,      SHCMD("today put") },
 
     // volume controll
     { 0,            XF86XK_AudioMute,           spawn,      SHCMD("pamixer -t") },
@@ -198,6 +202,7 @@ static Key keys[] = {
 
     // recording
     { 0,            XK_Print,                   spawn,      SHCMD("maim_menu") },
+    { ShiftMask,    XK_Print,                   spawn,      SHCMD("dmenurecord") },
 
 };
 
