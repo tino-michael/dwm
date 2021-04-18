@@ -166,6 +166,7 @@ static Key keys[] = {
     { MODKEY,                       XK_F1,		spawn,		SHCMD("add_todo") },
 
 	{ MODKEY,                       XK_F10,		spawn,		SHCMD("connect_hyphen") },
+	{ MODKEY|ControlMask,           XK_F10,		spawn,		SHCMD("connect_hyphen_l") },
 	{ MODKEY|ShiftMask,             XK_F10,		spawn,		SHCMD("disconnect_hyphen") },
     { MODKEY,                       XK_F11,     spawn,      SHCMD("unsplit") },
     { MODKEY|ShiftMask,             XK_F11,     spawn,      SHCMD("split_21") },
