@@ -48,6 +48,7 @@ static const Rule rules[] = {
 	{ "cantata",  NULL,       NULL,       1 << 8,       0,             0,           0,			0,			-1 },
 	{ NULL, NULL, "Krita - Edit Text",    0,            0,             1,           0,			0,			-1 },
 	{ "st",       NULL,       NULL,       0,            0,             0,           1,          0,          -1 },
+	{ "Alacritty",NULL,       NULL,       0,            0,             0,           1,          0,          -1 },
 	{ NULL, NULL, "Event Tester", 		  0,	        0, 			   0,           1,         	0,          -1 }, /* xev */
 };
 
@@ -125,15 +126,20 @@ static Key keys[] = {
 	{ MODKEY,                       XK_ü,      spawn,          SHCMD("yta") },
 	{ MODKEY,                       XK_e,      spawn,          SHCMD("$FILE_CMD") },
 	{ MODKEY,                       XK_Return, spawn,          SHCMD("$TERMINAL") },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	// toggle polybar and dwm bar together
 	{ MODKEY,                       XK_b,      spawn,          SHCMD("polybar-msg cmd toggle") },
+	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	// toggle only dwm bar
+	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
+	// toggle only polybar
+	{ MODKEY|ControlMask,           XK_b,      spawn,          SHCMD("polybar-msg cmd toggle") },
 	{ MODKEY,                       XK_d,      setmfact,       {.f = +1.65} },
 	{ MODKEY,                       XK_t,      setmfact,       {.f = +1.55} },
 	{ MODKEY,                       XK_g,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY|ShiftMask,             XK_h,      incnmaster,     {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_g,      incnmaster,     {.i = -1 } },
-	// { Mod1Mask,                     XK_Tab,    view,           {0} }, // jumps to most recent tag
+	{ MODKEY,                       XK_space,  view,      		{0} }, // toggle to most recent tag
 
 	{ MODKEY,                       XK_w,      setlayout,      {.v = &layouts[0]} }, // columns
 	{ MODKEY|ShiftMask,             XK_w,      setlayout,      {.v = &layouts[7]} }, // deck
@@ -145,8 +151,11 @@ static Key keys[] = {
 	{ MODKEY,                       XK_z,      setlayout,      {.v = &layouts[8]} }, // bstack
 	{ MODKEY|ShiftMask,             XK_z,      setlayout,      {.v = &layouts[9]} }, // bstackhoriz
 	{ MODKEY,                       XK_i,      togglesticky,   {0} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} }, // toggle to last used layout
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} }, // toggle floating of active window
+
+	// view,           {0} }, // toggle to most recent tag
+	// setlayout,      {0} }, // toggle to last used layout
+	// togglefloating, {0} }, // toggle floating of active window
 
 	// tagging
 	{ MODKEY,                       XK_Circum, view,           {.ui = ~0 } },
@@ -164,6 +173,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_0,                      9)
 
     { MODKEY,                       XK_F1,		spawn,		SHCMD("add_todo") },
+    { MODKEY,                       XK_F2,		spawn,		SHCMD("getkeys") },
 
 	{ MODKEY,                       XK_F10,		spawn,		SHCMD("connect_hyphen") },
 	{ MODKEY|ControlMask,           XK_F10,		spawn,		SHCMD("connect_hyphen_l") },
@@ -175,7 +185,7 @@ static Key keys[] = {
 
     { MODKEY,                       XK_Escape, killclient,     {0} },
     { MODKEY|ShiftMask,             XK_Escape, quit,           {0} },
-    { MODKEY|ShiftMask|ControlMask, XK_Escape, spawn,       SHCMD("shutdown_menu") },
+    { Mod1Mask|ControlMask,         XK_Delete, spawn,       SHCMD("shutdown_menu") },
 
 	// audio player controll
 	{ 0, 			XF86XK_AudioPrev,		spawn,		SHCMD("mpc prev") },
