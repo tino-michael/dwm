@@ -10,6 +10,8 @@ I added a list of additional layouts and other convenience patches:
       remaining windows are arranged vertically
   - deck: windows in the stack are arranged on top of each other so that only one is
       visible; like in a "card deck"
+  - bottomstack: master area on top, stack windows below either horizontally (standard) 
+      or vertically as well (shift-modified)
 - stacker: move windows around within the stack
 - sticky: sticky windows are visible on all tags
 - combo: chain tag commands together by pressing them in quick succession
@@ -19,6 +21,7 @@ I added a list of additional layouts and other convenience patches:
 - swallow: if a GUI programme is launched from a terminal and renders it unusable, hide
   the terminal
 - halfbar: my own patch to dwm to use its statusbar next to polybar
+- xresources: loads colours (and other settings) from Xresources
 
 ## halfbar patch
 
