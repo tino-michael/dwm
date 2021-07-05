@@ -1,33 +1,30 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 3;        /* border pixel of windows */
-static const unsigned int snap      = 32;       /* snap pixel */
-static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
-static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 0;        /* 0 means bottom bar */
-static const int space_both         = 1;        /* 1 means reserve space for top and bottom bar */
-static const int bar_height         = 30;
-static const float rel_bar_w        = 0.5;
-static const int show_bottom_title  = 0;
+static unsigned int borderpx  = 3;        /* border pixel of windows */
+static unsigned int snap      = 32;       /* snap pixel */
+static int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
+static int showbar            = 1;        /* 0 means no bar */
+static int topbar             = 0;        /* 0 means bottom bar */
+static int space_both         = 1;        /* 1 means reserve space for top and bottom bar */
+static int bar_height         = 30;
+static float rel_bar_w        = 0.5;
+static int show_bottom_title  = 0;
 static const char *fonts[]          = {
 	"Font Awesome 5 Free,Font Awesome 5 Free Solid:style=Solid:size=12",
 	"Font Awesome 5 Free,Font Awesome 5 Free Regular:style=Regular:size=12",
 	"Input:size=12",
 };
-static const char dmenufont[]       = "monospace:size=10";
-static const char col_black[]       = "#000000";
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
-static const char col_red[]         = "#8b2f45";
-static const char col_bred[]        = "#dd3333";
-static const char *colors[][3]      = {
+static char normbgcolor[]       = "#000000";
+static char normbordercolor[]       = "#444444";
+static char normfgcolor[]       = "#bbbbbb";
+static char selfgcolor[]       = "#eeeeee";
+static char selbgcolor[]         = "#8b2f45";
+static char selbordercolor[]        = "#dd3333";
+static char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_black, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_red,   col_bred  },
+    [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+    [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
 };
 
 /* tagging */
@@ -53,9 +50,9 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
-static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
+static float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static int nmaster     = 1;    /* number of clients in master area */
+static int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const int attachbelow = 1;    /* 1 means attach after the currently active window */
 
 #include "patches/layouts/fibonacci.c"
@@ -101,8 +98,28 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", NULL };
 static const char *termcmd[]  = { "st", NULL };
+
+/*
+ * Xresources preferences to load at startup
+ */
+ResourcePref resources[] = {
+    { "normbgcolor",        STRING,  &normbgcolor },
+    { "normbordercolor",    STRING,  &normbordercolor },
+    { "normfgcolor",        STRING,  &normfgcolor },
+    { "selbgcolor",         STRING,  &selbgcolor },
+    { "selbordercolor",     STRING,  &selbordercolor },
+    { "selfgcolor",         STRING,  &selfgcolor },
+    { "borderpx",          	INTEGER, &borderpx },
+    { "snap",          		INTEGER, &snap },
+    { "showbar",          	INTEGER, &showbar },
+    { "topbar",          	INTEGER, &topbar },
+    { "nmaster",          	INTEGER, &nmaster },
+    { "resizehints",       	INTEGER, &resizehints },
+    { "mfact",      	 	FLOAT,   &mfact },
+};
+
 
 #include <X11/XF86keysym.h>
 
