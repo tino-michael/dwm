@@ -4,6 +4,8 @@
 static unsigned int borderpx  = 3;        /* border pixel of windows */
 static unsigned int snap      = 32;       /* snap pixel */
 static int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
+static int center_windows	  = 1;        /* 1 means center window if it's the only one on screen
+											 (non-floating)*/
 static int showbar            = 1;        /* 0 means no bar */
 static int topbar             = 0;        /* 0 means bottom bar */
 static int space_both         = 1;        /* 1 means reserve space for top and bottom bar */
@@ -38,15 +40,14 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     switchtotag    isfloating	isterminal  noswallow	monitor */
-	{ "brave",    NULL,       NULL,       1 << 0,       0,             0,           0,			0,			-1 },
-	{ "code-oss", NULL,       NULL,       1 << 1,       0,             0,           0,			0,			-1 },
-	{ "Telegram", NULL,       NULL,       1 << 7,       0,             0,           0,			0,			-1 },
-	{ "cantata",  NULL,       NULL,       1 << 8,       0,             0,           0,			0,			-1 },
-	{ NULL, NULL, "Krita - Edit Text",    0,            0,             1,           0,			0,			-1 },
-	{ "st",       NULL,       NULL,       0,            0,             0,           1,          0,          -1 },
-	{ "Alacritty",NULL,       NULL,       0,            0,             0,           1,          0,          -1 },
-	{ NULL, NULL, "Event Tester", 		  0,	        0, 			   0,           1,         	0,          -1 }, /* xev */
+	/* class      instance    title       tags mask     switchtotag    isfloating	isterminal  noswallow	center	monitor */
+	{ "code-oss", NULL,       NULL,       1 << 1,       0,             0,           0,			0,			0,		-1 },
+	{ "Telegram", NULL,       NULL,       1 << 7,       0,             0,           0,			0,			1,		-1 },
+	{ "cantata",  NULL,       NULL,       1 << 8,       0,             0,           0,			0,			1,		-1 },
+	{ NULL, NULL, "Krita - Edit Text",    0,            0,             1,           0,			0,			0,		-1 },
+	{ "st",       NULL,       NULL,       0,            0,             0,           1,          0,          1,		-1 },
+	{ "Alacritty",NULL,       NULL,       0,            0,             0,           1,          0,          1,		-1 },
+	{ NULL, NULL, "Event Tester", 		  0,	        0, 			   0,           1,         	0,          0,		-1 }, /* xev */
 };
 
 /* layout(s) */
@@ -58,6 +59,7 @@ static const int attachbelow = 1;    /* 1 means attach after the currently activ
 #include "patches/layouts/fibonacci.c"
 #include "patches/layouts/col.c"
 #include "patches/layouts/center_master.c"
+#include "patches/layouts/center_single.c"
 #include "patches/layouts/deck.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -118,6 +120,7 @@ ResourcePref resources[] = {
     { "nmaster",          	INTEGER, &nmaster },
     { "resizehints",       	INTEGER, &resizehints },
     { "mfact",      	 	FLOAT,   &mfact },
+	{ "center_windows", 	INTEGER, &center_windows },
 };
 
 
@@ -216,7 +219,7 @@ static Key keys[] = {
 	{ ControlMask,	XK_Escape,              spawn,      SHCMD("mpc del 0") },
 
 
-    { MODKEY,               XK_ß,           spawn,      SHCMD("unicode_menu emoji fontawesome math") },
+    { MODKEY,               XK_ß,           spawn,      SHCMD("unicode_menu") },
     { MODKEY,	     		XK_ö,           spawn,      SHCMD("today copy") },
     { MODKEY|ShiftMask,     XK_ö,           spawn,      SHCMD("today put") },
 
