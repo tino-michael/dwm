@@ -12,6 +12,8 @@ I added a list of additional layouts and other convenience patches:
       visible; like in a "card deck"
   - bottomstack: master area on top, stack windows below either horizontally (standard) 
       or vertically as well (shift-modified)
+  - center single window: my own layout that centers the master area horizontally when there
+    is only one tiled (i.e. non-floating) window visible
 - stacker: move windows around within the stack
 - sticky: sticky windows are visible on all tags
 - combo: chain tag commands together by pressing them in quick succession
