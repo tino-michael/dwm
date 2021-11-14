@@ -171,6 +171,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_z,      setlayout,      {.v = &layouts[8]} }, // bstack
 	{ MODKEY|ShiftMask,             XK_z,      setlayout,      {.v = &layouts[9]} }, // bstackhoriz
 	{ MODKEY,                       XK_i,      togglesticky,   {0} },
+	{ MODKEY|ControlMask,           XK_space,  toggle_center_single,   {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} }, // toggle floating of active window
 
 	// view,           {0} }, // toggle to most recent tag
