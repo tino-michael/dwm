@@ -1,6 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
+#include <X11/X.h>
 static unsigned int borderpx  = 3;        /* border pixel of windows */
 static unsigned int snap      = 32;       /* snap pixel */
 static int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
@@ -41,13 +42,15 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     switchtotag    isfloating	isterminal  noswallow	center	monitor */
-	{ "code-oss", NULL,       NULL,       1 << 1,       0,             0,           0,			0,			0,		-1 },
 	{ "Telegram", NULL,       NULL,       1 << 7,       0,             0,           0,			0,			1,		-1 },
 	{ "cantata",  NULL,       NULL,       1 << 8,       0,             0,           0,			0,			1,		-1 },
 	{ NULL, NULL, "Krita - Edit Text",    0,            0,             1,           0,			0,			0,		-1 },
-	{ "st",       NULL,       NULL,       0,            0,             0,           1,          0,          1,		-1 },
 	{ "Alacritty",NULL,       NULL,       0,            0,             0,           1,          0,          1,		-1 },
-	{ NULL, NULL, "Event Tester", 		  0,	        0, 			   0,           1,         	0,          0,		-1 }, /* xev */
+	{ "darktable",NULL,       NULL,       0,            0,             0,           0,          0,          0,		-1 },
+    /* xev */
+	{ NULL, NULL, "Event Tester", 		  0,	        0, 			   0,           0,         	1,          0,		-1 },
+    { "origin.exe", NULL,     NULL,       1 << 9,       1,             1,           0,          0,          0,      -1 },
+    { "origincrashreporter.exe", NULL,     NULL,       1 << 9,       1,             1,           0,          0,          0,      -1 },
 };
 
 /* layout(s) */
@@ -128,6 +131,7 @@ ResourcePref resources[] = {
 
 #define XK_Return 0xff0d
 #define XK_Circum 0xfe52
+#define XK_Space  0x20
 #define XK_ß      0xdf
 #define XK_ä	  0xe4
 #define XK_ö	  0xf6
@@ -146,6 +150,14 @@ static Key keys[] = {
 	{ MODKEY,                       XK_ü,      spawn,          SHCMD("yta") },
 	{ MODKEY,                       XK_e,      spawn,          SHCMD("$FILE_CMD") },
 	{ MODKEY,                       XK_Return, spawn,          SHCMD("$TERMINAL") },
+
+    // dunst commands
+    { ControlMask,                  XK_Space,  spawn,          SHCMD("dunstctl close") },
+    { ControlMask|ShiftMask,        XK_Space,  spawn,          SHCMD("dunstctl close-all") },
+    { ControlMask|Mod1Mask,         XK_Space,  spawn,          SHCMD("dunstctl history-pop") },
+    { ControlMask|ShiftMask,        XK_period, spawn,          SHCMD("dunstctl context") },
+    { ControlMask|ShiftMask|Mod1Mask,XK_Space, spawn,          SHCMD("dunst_toggle") },
+
 	// toggle polybar and dwm bar together
 	{ MODKEY,                       XK_b,      spawn,          SHCMD("polybar-msg cmd toggle") },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
@@ -165,7 +177,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_w,      setlayout,      {.v = &layouts[7]} }, // deck
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} }, // floating
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} }, // monocle
-	{ MODKEY,                       XK_k,      setlayout,      {.v = &layouts[3]} }, // fibonacci
+	{ MODKEY,                       XK_k,      setlayout,      {.v = &layouts[4]} }, // dwindle
+	{ MODKEY|ShiftMask,             XK_k,      setlayout,      {.v = &layouts[3]} }, // fibonacci
 	{ MODKEY,                       XK_c,      setlayout,      {.v = &layouts[5]} }, // centeredmaster
 	{ MODKEY|ShiftMask,             XK_c,      setlayout,      {.v = &layouts[6]} }, // centeredfloatingmaster
 	{ MODKEY,                       XK_z,      setlayout,      {.v = &layouts[8]} }, // bstack
